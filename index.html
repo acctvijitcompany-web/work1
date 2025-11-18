@@ -1,88 +1,13 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>แบบฟอร์มบันทึกงาน</title>
-  <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    label {
-      display: block;
-      margin-top: 12px;
-      font-weight: 600;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 4px;
-      box-sizing: border-box;
-    }
-    button {
-      margin-top: 16px;
-      padding: 10px 16px;
-      cursor: pointer;
-    }
-    .status {
-      margin-top: 16px;
-      font-size: 0.95rem;
-    }
-  </style>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เว็บแอป</title>
 </head>
 <body>
-  <h1>แบบฟอร์มบันทึกงาน</h1>
-  <p>กรอกข้อมูลแล้วระบบจะส่งไปเก็บที่ Google Sheet โดยใช้ Apps Script เป็น backend</p>
-
-  <form id="workForm">
-    <label for="name">ชื่อผู้บันทึก</label>
-    <input type="text" id="name" name="name" required />
-
-    <label for="message">รายละเอียดงาน</label>
-    <textarea id="message" name="message" rows="4" required></textarea>
-
-    <button type="submit">บันทึก</button>
-  </form>
-
-  <div class="status" id="status"></div>
-
-  <script>
-    // 👉 ใส่ URL Web App ของ Apps Script ตรงนี้
-    const API_URL = "https://script.google.com/macros/s/XXXXXXXX/exec";
-
-    const form = document.getElementById('workForm');
-    const statusEl = document.getElementById('status');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault(); // กันหน้าเว็บรีเฟรช
-
-      statusEl.textContent = "กำลังส่งข้อมูล...";
-
-      // ใช้ FormData เพื่อให้เป็น 'simple POST' (ไม่ติด CORS แปลก ๆ)
-      const formData = new FormData(form);
-
-      fetch(API_URL, {
-        method: 'POST',
-        body: formData,
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === 'success') {
-            statusEl.textContent = "✅ " + data.message;
-            form.reset();
-          } else {
-            statusEl.textContent = "❌ เกิดข้อผิดพลาด: " + data.message;
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          statusEl.textContent = "❌ ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง";
-        });
-    });
-  </script>
+    <iframe style="width: 100%; height: 100vh;" scrolling="yes" src="https://script.google.com/macros/s/AKfycbzqZSt5Q1UVOVqf3xucpPpDx5PIyjIN2dsTAVNG6zxGpWNG8nUB6BwHSeZn4t6fEv5T0A/exec" frameborder="0"></iframe>
 </body>
 </html>
